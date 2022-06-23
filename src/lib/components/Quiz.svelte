@@ -68,7 +68,12 @@
 <div class="flex w-full justify-evenly space-x-6 p-6">
 	<ul
 		class="flex items-stretch flex-col space-y-4 basis-5/12"
-		use:dndzone={{ items: startItems, flipDurationMs }}
+		use:dndzone={{
+			items: startItems,
+			flipDurationMs,
+			dropFromOthersDisabled: true,
+			dropTargetStyle: { outline: '#52525b', 'outline-style': 'dotted' },
+		}}
 		on:consider={handleStartChange}
 		on:finalize={handleStartChange}
 	>
@@ -79,7 +84,11 @@
 
 	<ul
 		class="flex items-stretch flex-col space-y-4 basis-5/12"
-		use:dndzone={{ items: endItems, flipDurationMs }}
+		use:dndzone={{
+			items: endItems,
+			flipDurationMs,
+			dropTargetStyle: { outline: '#52525b', 'outline-style': 'dotted' },
+		}}
 		on:consider={handleEndChange}
 		on:finalize={handleEndChange}
 	>
