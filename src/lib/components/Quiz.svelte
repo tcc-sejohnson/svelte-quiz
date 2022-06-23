@@ -50,7 +50,7 @@
 	};
 
 	const check = () => {
-		shouldReset = true;
+		shouldReset = endItems.length > 0;
 		endItems = endItems.map((item, i) => {
 			if (item.id === i) {
 				item.correct = true;
