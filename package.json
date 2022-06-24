@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "env-cmd -f .env.private svelte-kit dev",
-		"build": "env-cmd -f .env.private svelte-kit build",
+		"build": "svelte-kit build",
 		"package": "env-cmd -f .env.private svelte-kit package",
 		"preview": "env-cmd -f .env.private svelte-kit preview",
 		"prepare": "svelte-kit sync",
