@@ -93,29 +93,31 @@ export const getQuizzesMetadata = async (): Promise<Array<Omit<TimelineQuiz, 'ex
 	});
 
 	const quizSheets = spreadsheet.data.sheets?.filter(
-		(sheet) => sheet?.properties?.title !== 'Template'
+		(sheet) => sheet?.properties?.title !== 'template'
 	);
 
-	if (!quizSheets || quizSheets.length === 0) {
-		throw Error("Didn't find any non-template sheets in the Quizzes Google Sheet.");
-	}
-
-	const metadata: Array<Omit<TimelineQuiz, 'expect'>> = quizSheets.map((sheet) =>
-		parseMetadata(sheet)
-	);
+	const metadata: Array<Omit<TimelineQuiz, 'expect'>> =
+		quizSheets?.map((sheet) => parseMetadata(sheet)) ?? [];
 
 	return metadata;
 };
 
 export const getQuiz = async (quizTitle: string): Promise<TimelineQuiz> => {
-	const spreadsheet = await sheets.spreadsheets.get({
-		spreadsheetId: process.env['QUIZZES_SHEET_ID'],
-		includeGridData: true,
-		ranges: [`'${quizTitle}'!A:D`],
-	});
+	let spreadsheet: sheets_v4.Schema$Spreadsheet | undefined = undefined;
+	try {
+		spreadsheet = (
+			await sheets.spreadsheets.get({
+				spreadsheetId: process.env['QUIZZES_SHEET_ID'],
+				includeGridData: true,
+				ranges: [`'${quizTitle}'!A:D`],
+			})
+		)?.data;
+	} catch (e) {
+		throw Error(`Failed to retrieve a sheet matching ${quizTitle}.`);
+	}
 
-	const quizSheets = spreadsheet.data.sheets?.filter(
-		(sheet) => sheet?.properties?.title !== 'Template'
+	const quizSheets = spreadsheet?.sheets?.filter(
+		(sheet) => sheet?.properties?.title !== 'template'
 	);
 
 	if (quizSheets?.length !== 1) {
