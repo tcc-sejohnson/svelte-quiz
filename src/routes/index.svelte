@@ -20,7 +20,7 @@
         cursor-pointer"
 				on:click={() => goto(quizMetadata.slug)}
 			>
-				<a href={quizMetadata.slug}>{quizMetadata.title}</a>
+				<a sveltekit:prefetch href={quizMetadata.slug}>{quizMetadata.title}</a>
 			</li>
 		{/each}
 	</ul>
