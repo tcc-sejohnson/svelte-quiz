@@ -13,15 +13,17 @@
 	<h1>Available Quizzes</h1>
 	<ul class="mt-4 flex flex-col space-y-4">
 		{#each metadata as quizMetadata (quizMetadata.slug)}
-			<li
+			<a
+				href={quizMetadata.slug}
+				sveltekit:prefetch
 				class="
         flex flex-col items-center justify-center
         p-4 min-h-12 h-fit border border-gray-600
         cursor-pointer"
 				on:click={() => goto(quizMetadata.slug)}
 			>
-				<a sveltekit:prefetch href={quizMetadata.slug}>{quizMetadata.title}</a>
-			</li>
+				<li>{quizMetadata.title}</li>
+			</a>
 		{/each}
 	</ul>
 </div>
