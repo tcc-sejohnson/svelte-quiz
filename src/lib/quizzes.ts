@@ -60,7 +60,7 @@ const parseQuiz = (sheet: sheets_v4.Schema$Sheet): TimelineQuiz => {
 				throw Error(`Event body in sheet ${slug} on row ${i + 3} was missing.`);
 			}
 
-			const intIndex = parseInt(eventIndex);
+			const intIndex = parseInt(eventIndex.trim());
 
 			if (isNaN(intIndex)) {
 				throw Error(
